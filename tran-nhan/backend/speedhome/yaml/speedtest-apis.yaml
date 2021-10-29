@@ -1,0 +1,789 @@
+swagger: '2.0'
+info:
+  description: The document of SpeedHome REST APIs
+  version: 1.0.0
+  title: SpeedHome REST APIs
+  contact:
+    name: Khoa VU
+    url: 'http://www.khoavu.net'
+    email: khoavd.it@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'localhost:8080'
+basePath: /speedhome/backend/v1
+
+paths:
+  /property:
+    parameters:
+      - $ref: "#/parameters/Request-Context"
+    get:
+      tags:
+        - Properties
+      summary: Search Property
+      operationId: search
+      consumes: []
+      parameters:
+        - name: term
+          in: query
+          description: Keyword Search
+          required: true
+          type: string
+      responses:
+        200:
+          $ref: '#/responses/Properties'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+    post:
+      tags:
+        - Properties
+      summary: Add new a property
+      operationId: addProperty
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: request
+          description: request
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyReq'
+      responses:
+        200:
+          $ref: '#/responses/Property'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+  /property/{id}:
+    parameters:
+      - $ref: "#/parameters/Request-Context"
+      - name: id
+        in: path
+        description: Property ID
+        required: true
+        type: string
+    put:
+      tags:
+        - Properties
+      summary: Update a Property
+      operationId: updateProperty
+      consumes: []
+      parameters:
+        - in: body
+          name: request
+          description: request
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyReq'
+      responses:
+        200:
+          $ref: '#/responses/Property'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+    patch:
+      tags:
+        - Properties
+      summary: Update a Property
+      operationId: approveProperty
+      consumes: []
+      parameters:
+        - in: body
+          name: request
+          description: request
+          required: true
+          schema:
+            $ref: '#/definitions/PropertyApproveReq'
+      responses:
+        200:
+          $ref: '#/responses/Property'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+  /owners:
+    #-------------GET_ALL
+    get:
+      tags:
+        - Owner
+      summary : Get All Owner
+      operationId : getAllOwner
+      consumes: []
+
+      responses:
+        200:
+          $ref: '#/responses/Owners'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+    post :
+      tags :
+        - Owner
+      summary : addOwner
+      operationId : addOwner
+      consumes :
+        - application/json
+      produces :
+        - application/json
+      parameters:
+        - in : body
+          name : request
+          description : request
+          required : true
+          schema :
+            $ref: '#/definitions/OwnerRequest'
+      responses:
+        200:
+          $ref: '#/responses/Owner'
+        201:
+          $ref: '#/responses/Created'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+  # Put Owner
+  /owners/{idOwner}:
+    parameters:
+      - name: idOwner
+        in: path
+        description: Owner ID
+        required: true
+        type: string
+
+    get:
+      tags:
+        - Owner
+      summary : Get Detail Owner
+      operationId : getDetailOwner
+
+      responses:
+        200:
+          $ref: '#/responses/Owner'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+    put:
+      tags:
+        - Owner
+      summary : Update Owner
+      operationId : updateOwner
+      consumes :
+        - application/json
+      produces :
+        - application/json
+      parameters :
+        - in : body
+          name : request
+          description : request
+          schema :
+            $ref: '#/definitions/OwnerRequest'
+      responses:
+        200:
+          $ref: '#/responses/Owner'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+
+    delete :
+      tags :
+        - Owner
+      summary : Delete Owner
+      operationId: removeOwner
+      consumes : []
+      responses:
+        200:
+          $ref: '#/responses/OK'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+  /products:
+    #-------------GET_ALL
+    get:
+
+      tags:
+        - Product
+      summary : Get All Product
+      operationId : getAllProduct
+      consumes: []
+
+      responses:
+        200:
+          $ref: '#/responses/Products'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+    post :
+      tags :
+        - Product
+      summary : addProduct
+      operationId : addProduct
+      consumes :
+        - application/json
+      produces :
+        - application/json
+      parameters:
+        - in : body
+          name : request
+          description : request
+          required : true
+          schema :
+            $ref: '#/definitions/ProductRequest'
+      responses:
+        200:
+          $ref: '#/responses/Product'
+        201:
+          $ref: '#/responses/Created'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+  /products/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: Products ID
+        required: true
+        type: string
+
+    get:
+      tags:
+        - Product
+      summary : Get Detail Product
+      operationId : getDetailProduct
+
+      responses:
+        200:
+          $ref: '#/responses/Product'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+    put:
+      tags:
+        - Product
+      summary : Update Product
+      operationId : updateProduct
+      consumes :
+        - application/json
+      produces :
+        - application/json
+      parameters :
+        - in : body
+          name : request
+          description : request
+          schema :
+            $ref: '#/definitions/ProductRequest'
+      responses:
+        200:
+          $ref: '#/responses/Product'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+    delete :
+      tags :
+        - Product
+      summary : Delete Product
+      operationId: removeProduct
+      consumes : []
+      responses:
+        200:
+          $ref: '#/responses/OK'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+  /contacts:
+    #-------------GET_ALL
+    get:
+
+      tags:
+        - Contact
+      summary : Get All Contact
+      operationId : getAllContact
+      consumes: []
+
+      responses:
+        200:
+          $ref: '#/responses/Contacts'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+    post :
+      tags :
+        - Contact
+      summary : addContact
+      operationId : addContact
+      consumes :
+        - application/json
+      produces :
+        - application/json
+      parameters:
+        - in : body
+          name : request
+          description : request
+          required : true
+          schema :
+            $ref: '#/definitions/ContactRequest'
+      responses:
+        200:
+          $ref: '#/responses/Contact'
+        201:
+          $ref: '#/responses/Created'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+  /contacts/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: Contacts ID
+        required: true
+        type: string
+
+    get:
+      tags:
+        - Contact
+      summary : Get Detail Contact
+      operationId : getDetailContact
+
+      responses:
+        200:
+          $ref: '#/responses/Contact'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+    put:
+      tags:
+        - Contact
+      summary : Update Contact
+      operationId : updateContact
+      consumes :
+        - application/json
+      produces :
+        - application/json
+      parameters :
+        - in : body
+          name : request
+          description : request
+          schema :
+            $ref: '#/definitions/ContactRequest'
+      responses:
+        200:
+          $ref: '#/responses/Contact'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+    delete :
+      tags :
+        - Contact
+      summary : Delete Contact
+      operationId: removeContact
+      consumes : []
+      responses:
+        200:
+          $ref: '#/responses/OK'
+        401:
+          $ref: '#/responses/NoAuthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+
+
+
+definitions:
+  Property:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 030e5438-4d9e-4d41-aa68-ac04b05b7c3d
+      name:
+        type: string
+        example: Old Farm
+      desc:
+        type: string
+        example: Beautyful Old Farm
+      price:
+        type: number
+        format: double
+        example: 1500
+      type:
+        type: string
+        enum: [AGRICULTURE, RESIDENTIAL, COMMERCIAL, INDUSTRIAL]
+      status:
+        type: string
+        enum: [PENDING, APPROVED, REJECTED]
+      statusComment:
+        type: string
+        example: "Approved this property"
+  Properties:
+    type: array
+    items:
+      $ref: '#/definitions/Property'
+  PropertyReq:
+    type: object
+    required:
+      - name
+      - type
+    properties:
+      name:
+        type: string
+        example: Old Farm
+      desc:
+        type: string
+        example: Beautyful Old Farm
+      price:
+        type: number
+        format: double
+        example: 1.500
+      userId:
+        type: string
+        example: khoavu
+        description: who do action
+      type:
+        type: string
+        enum: [AGRICULTURE, RESIDENTIAL, COMMERCIAL, INDUSTRIAL]
+      status:
+        type: string
+        enum: [PENDING, APPROVED, REJECTED]
+  PropertyApproveReq:
+    type: object
+    required:
+      - status
+      - statusComment
+    properties:
+      status:
+        type: string
+        enum: [APPROVED, REJECTED]
+      statusComment:
+        type: string
+        example: "Approved this property"
+      userId:
+        type: string
+        example: khoavu
+        description: who do action
+
+  Owner:
+    type: object
+    properties:
+      idOwner :
+        type: string
+        example : 22
+      fullName:
+        type: string
+        example : "Vi văn ninh"
+      address:
+        type: string
+        example : "Mỹ ĐÌnh"
+      age:
+        type: integer
+        example : 16
+  Owners :
+    type : array
+    items :
+      $ref : "#/definitions/Owner"
+
+  OwnerRequest:
+    type: object
+    required:
+      - fullName
+      - address
+      - age
+    properties:
+      idOwner:
+        type: string
+        example: 22
+      fullName:
+        type: string
+        example: "Vi Văn Ninh"
+      address:
+        type: string
+        example: "My đinh"
+      age:
+        type: integer
+        example: 16
+
+  OwnerRequestPatch  :
+    type: object
+    required:
+      - idOwner
+      - fullName
+    properties:
+      idOwner:
+        type: string
+        example: 22
+      fullName:
+        type: string
+        example: 'Vi Văn Ninh'
+  Product:
+    type: object
+    properties:
+      id :
+        type: string
+        example : 22
+      title:
+        type: string
+        example : "ngày hôm nay"
+      image:
+        type: string
+        example : "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+      time:
+        type: string
+        example : "24/09/2021"
+      category:
+        type: string
+        example : "Music"
+      description:
+        type: string
+        example : "hôm nay nhiều mây trời trong sáng không mưa"
+      context:
+        type: string
+        example: "ngày hôm nay nhiều nắng cực, viết văn bla bla "
+  Products :
+    type : array
+    items :
+      $ref : "#/definitions/Product"
+  ProductRequest:
+    type: object
+    required:
+      - id
+      - title
+      - image
+      - time
+      - category
+      - description
+      - context
+    properties:
+      id :
+        type: string
+        example : 22
+      title:
+        type: string
+        example : "ngày hôm nay"
+      image:
+        type: string
+        example : "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+      time:
+        type: string
+        example : "24/09/2021"
+      category:
+        type: string
+        example : "Music"
+      description:
+        type: string
+        example : "hôm nay nhiều mây trời trong sáng không mưa"
+      context:
+        type: string
+        example: "ngày hôm nay nhiều nắng cực, viết văn bla bla "
+
+  ProductRequestPatch  :
+    type: object
+    required:
+      - id
+      - title
+      - image
+      - time
+      - category
+      - description
+      - context
+    properties:
+      id :
+        type: string
+        example : 22
+      title:
+        type: string
+        example : "ngày hôm nay"
+      image:
+        type: string
+        example : "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+      time:
+        type: string
+        example : "24/09/2021"
+      category:
+        type: string
+        example : "Music"
+      description:
+        type: string
+        example : "hôm nay nhiều mây trời trong sáng không mưa"
+      context:
+        type: string
+        example: "ngày hôm nay nhiều nắng cực, viết văn bla bla "
+  Contact:
+    type: object
+    properties:
+      id :
+        type: string
+        example : 22
+      name:
+        type: string
+        example : "Vi văn ninh"
+      email:
+        type: string
+        example : "donkey.n1160@gmail.com"
+      message:
+        type: string
+        example : "hello weoafsfioajs"
+  Contacts :
+    type : array
+    items :
+      $ref : "#/definitions/Contact"
+  ContactRequest:
+    type: object
+    required:
+      - id
+      - name
+      - email
+      - message
+    properties:
+      id:
+        type: string
+        example: 22
+      name:
+        type: string
+        example: "Vi Văn Ninh"
+      email:
+        type: string
+        example: "donkey.n1160@gmail.com"
+      message:
+        type: string
+        example: "thông tin ca nhân banbaa"
+  ContactRequestPatch :
+    type: object
+    required:
+      - id
+      - name
+      - email
+      - message
+    properties:
+      id:
+        type: string
+        example: 22
+      name:
+        type: string
+        example: "Vi Văn Ninh"
+      email:
+        type: string
+        example: "donkey.n1160@gmail.com"
+      message:
+        type: string
+        example: "thông tin ca nhân banbaa"
+
+responses:
+  Owner :
+    description : 'Owner Response'
+    schema :
+      $ref : '#/definitions/Owner'
+  Owners :
+    description : 'List Owner Response'
+    schema :
+      $ref : '#/definitions/Owners'
+  Property:
+    description: 'Property Response'
+    schema:
+      $ref: '#/definitions/Property'
+  Properties:
+    description: 'Properties Response'
+    schema:
+      $ref: '#/definitions/Properties'
+  Product :
+    description : 'Product Response'
+    schema :
+      $ref : '#/definitions/Product'
+  Products :
+    description : 'List Product Response'
+    schema :
+      $ref : '#/definitions/Products'
+  Contact :
+    description : 'Contact Response'
+    schema :
+      $ref : '#/definitions/Contact'
+  Contacts :
+    description : 'List Contact Response'
+    schema :
+      $ref : '#/definitions/Contacts'
+  OK:
+    description: '200: OK'
+  Created:
+    description: '201: Created'
+  Accepted:
+    description: '202: Accepted'
+  NoContent:
+    description: '204: NoContent'
+  BadRequest:
+    description: '400: Bad Request'
+  NoAuthorized:
+    description: '401: No Authorized'
+  Forbidden:
+    description: '403: Forbidden'
+  NotFound:
+    description: '404: Not Found'
+  InternalServerError:
+    description: '500: Internal Server Error'
+parameters:
+  Request-Context:
+    name: apikey
+    in: header
+    description: Request context
+    required: true
+    type: string
